@@ -6,3 +6,19 @@ header {
     rgb(42, 27, 83)
   );
 }
+/*Main card styling:*/
+#locationCity {
+  border: 1px solid black;
+}
+
+#currentWeather {
+  margin-left: 10px;
+}
+
+/*Five day card styling*/
+
+.cardBackground {
+  background-color: rgb(50, 66, 80);
+  width: 225px;
+  justify-content: space-around;
+}

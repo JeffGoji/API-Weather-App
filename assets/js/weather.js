@@ -5,6 +5,7 @@ const fiveDay = document.querySelector("#fiveDayBody");
 const currentWeather = document.querySelector("#currentWeather");
 const weatherHeader = document.querySelector("#weatherHeader");
 const currentWeatherCard = document.querySelector("#currentWeatherCard");
+const fiveDayCards = document.querySelector("#fiveDayBody");
 
 //Create variable for API data
 var apiData =
@@ -77,13 +78,55 @@ var fetchWeatherApi = async function (apiResponse) {
             <p><b>Humidity: </b>${displayWeather.humidity}%</b></p>
             <p><b>Wind Speed: </b>${displayWeather.wind} MPH</b></p>
             <p><b>UV Index: </b>${displayWeather.uvIndex}</b></p>`;
+
         //Keep CL to make sure it's all working.
         console.log(markUpData);
         currentWeather.insertAdjacentHTML("afterbegin", markUpData);
 
         // Get extended forecast data
-        var fiveDayforecast = response.daily;
-        console.log(fiveDayforecast);
+        var fiveDayForecast = response.daily;
+        console.log(fiveDayForecast);
+
+        // Create day cards for extended forecast and populate cards with information:
+        for (let i = 0; i < fiveDayForecast.length - 3; i++) {
+          var date =
+            today.getMonth() +
+            1 +
+            "/" +
+            (today.getDate() + i + 1) +
+            "/" +
+            today.getFullYear();
+          var weatherDescription = fiveDayForecast[i].weather[0].description;
+          var weatherIcon = fiveDayForecast[i].weather[0].icon;
+          var weatherIconLink =
+            "<img src='http://openweathermap.org/img/wn/" +
+            weatherIcon +
+            "@2x.png' alt='" +
+            weatherDescription +
+            "' title='" +
+            weatherDescription +
+            "'  />";
+          var cardDays = document.createElement("card");
+          cardDays.className = "btn btn-lg m-4 text-white cardBackground";
+          cardDays.innerHTML =
+            "<p><b>" +
+            date +
+            "</b></p>" +
+            "<p>" +
+            weatherIconLink +
+            "</p>" +
+            "<p>Temp: " +
+            fiveDayForecast[i].temp.day.toFixed(1) +
+            "°F</p>" +
+            "<p>Wind: " +
+            fiveDayForecast[i].wind_speed +
+            "MPH</p>" +
+            "<p>Humidity: " +
+            fiveDayForecast[i].humidity +
+            "%</p>";
+
+          fiveDayCards.appendChild(cardDays);
+        }
       });
   } catch (err) {
     //Error catching for the API request:
