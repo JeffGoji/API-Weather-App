@@ -4,7 +4,7 @@ const today = new Date();
 const fiveDay = document.querySelector("#fiveDayBody");
 const currentWeather = document.querySelector("#currentWeather");
 const weatherHeader = document.querySelector("#weatherHeader");
-const currentWeatherCard = document.querySelector("#currentWeather");
+const currentWeatherCard = document.querySelector("#currentWeatherCard");
 
 //Create variable for API data
 var apiData =
@@ -19,7 +19,7 @@ var fetchWeatherApi = async function (apiResponse) {
 
     if (!response.ok) throw new Error(`${data.message} (${response.status})`);
     //Logged the response and data coming back for testing and trouble shooting pruposes.
-    console.log(data);
+    console.log(data, apiResponse);
 
     // Create variables to hold the latitude and longitude of requested city above
     var latitude = data.coord.lat;
@@ -41,15 +41,52 @@ var fetchWeatherApi = async function (apiResponse) {
       weatherDescription +
       "'  />";
 
-    // Empty Current Weather element for new data
+    // Empty Current Weather element for new data to be entered:
     currentWeather.textContent = "";
     fiveDay.textContent = "";
 
     // Update <h2> element to show city, date and icon
     weatherHeader.innerHTML = city + " (" + date + ") " + weatherIconLink;
 
-    //Error catching for the API request:
+    // Return a fetch request to the OpenWeather using longitude and latitude:
+    return fetch(
+      "https://api.openweathermap.org/data/2.5/onecall?lat=" +
+        latitude +
+        "&lon=" +
+        longitude +
+        "&exclude=alerts,minutely,hourly&units=imperial&appid=ecaa6040fe70f7ecaf9efcea97dfda07"
+    )
+      .then(function (response) {
+        return response.json();
+      })
+      .then(function (response) {
+        console.log(response);
+
+        //Create the 4 pieces of informaiton to display under main forecast:
+        let displayWeather = response;
+        displayWeather = {
+          temperature: response.current.temp.toFixed(1),
+          humidity: response.current.humidity,
+          wind: response.current.wind_speed.toFixed(1),
+          uvIndex: response.current.uvi.toFixed(1),
+        };
+        console.log(displayWeather);
+
+        const markUpData = ` 
+            <p><b>Temperature: </b>${displayWeather.temperature}°F</b></p>
+            <p><b>Humidity: </b>${displayWeather.humidity}%</b></p>
+            <p><b>Wind Speed: </b>${displayWeather.wind} MPH</b></p>
+            <p><b>UV Index: </b>${displayWeather.uvIndex}</b></p>`;
+        //Keep CL to make sure it's all working.
+        console.log(markUpData);
+        currentWeather.insertAdjacentHTML("afterbegin", markUpData);
+
+        // Get extended forecast data
+        var fiveDayforecast = response.daily;
+        console.log(fiveDayforecast);
+      });
   } catch (err) {
+    //Error catching for the API request:
     alert(err);
   }
 };
