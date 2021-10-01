@@ -1,56 +1,58 @@
 "use strict";
+//All my constants:
+const today = new Date();
+const fiveDay = document.querySelector("#fiveDayBody");
+const currentWeather = document.querySelector("#currentWeather");
+const weatherHeader = document.querySelector("#weatherHeader");
+const currentWeatherCard = document.querySelector("#currentWeather");
 
+//Create variable for API data
 var apiData =
-  "https://api.openweathermap.org/data/2.5/weather?q=" +
-  cityName +
-  "&units=imperial&appid=f97301447cbd41068af8623a398ba1fb";
+  "https://api.openweathermap.org/data/2.5/weather?q=houston&units=imperial&appid=f97301447cbd41068af8623a398ba1fb";
 
-var GetWeatherInfo = async function (name) {
+// Fetch request for weather API:
+var fetchWeatherApi = async function (apiResponse) {
   try {
-    fetch(apiData)
-      .then(function (cityResponse) {
-        return cityResponse.json();
-      })
-      .then(function (response) {
-        // Create variables to hold the latitude and longitude of requested city
-        console.log(name);
-        console.log(response);
-        var latitude = cityResponse.coord.lat;
-        var longitude = cityResponse.coord.lon;
+    let response = await fetch(apiData);
+    //json response
+    let data = await response.json();
 
-        // Create variables for City name, current date and icon information for use in current Weather heading
-        var city = cityResponse.name;
-        var date =
-          today.getMonth() +
-          1 +
-          "/" +
-          today.getDate() +
-          "/" +
-          today.getFullYear();
-        var weatherIcon = cityResponse.weather[0].icon;
-        var weatherDescription = cityResponse.weather[0].description;
-        var weatherIconLink =
-          "<img src='http://openweathermap.org/img/wn/" +
-          weatherIcon +
-          "@2x.png' alt='" +
-          weatherDescription +
-          "' title='" +
-          weatherDescription +
-          "'  />";
+    if (!response.ok) throw new Error(`${data.message} (${response.status})`);
+    //Logged the response and data coming back for testing and trouble shooting pruposes.
+    console.log(data);
 
-        // Empty Current Weather element for new data
-        currentWeatherEl.textContent = "";
-        fiveDayEl.textContent = "";
+    // Create variables to hold the latitude and longitude of requested city above
+    var latitude = data.coord.lat;
+    var longitude = data.coord.lon;
+    console.log(latitude, longitude);
 
-        // Update <h2> element to show city, date and icon
-        weatherStatusEl.innerHTML = city + " (" + date + ") " + weatherIconLink;
+    // Create variables for City name, current date and icon information for use in current Weather heading
+    var city = data.name;
+    var date =
+      today.getMonth() + 1 + "/" + today.getDate() + "/" + today.getFullYear();
+    var weatherIcon = data.weather[0].icon;
+    var weatherDescription = data.weather[0].description;
+    var weatherIconLink =
+      "<img src='http://openweathermap.org/img/wn/" +
+      weatherIcon +
+      "@2x.png' alt='" +
+      weatherDescription +
+      "' title='" +
+      weatherDescription +
+      "'  />";
 
-        // Remove class name 'hidden' to show current weather card
-        currentWeatherCardEl.classList.remove("hidden");
-        fiveDayCardEl.classList.remove("hidden");
-      });
+    // Empty Current Weather element for new data
+    currentWeather.textContent = "";
+    fiveDay.textContent = "";
+
+    // Update <h2> element to show city, date and icon
+    weatherHeader.innerHTML = city + " (" + date + ") " + weatherIconLink;
+
+    //Error catching for the API request:
   } catch (err) {
     alert(err);
-    if (!res.ok) throw new Error(`${data.message} (${res.status})`);
   }
 };
+
+//Kick it off
+fetchWeatherApi();
