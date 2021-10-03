@@ -17,8 +17,7 @@
 
 
     <!--my CSS file-->
-    <link rel="stylesheet" href="assets/css/style.css">
-
+    <link href="assets/css/style.css" rel="stylesheet">
 
 </head>
 <!--Header-->
@@ -31,51 +30,54 @@
     <main class="container-fluid">
         <div class="row">
 
-            <!--Search buttona dn text field seciton-->
+            <!--Search button and text field seciton-->
 
             <div class="col-md-3" id="searchBar">
                 <h2>Search for a City:</h2>
                 <div>
-                    <form id="cityForm">
-                        <label class="form-lable" for="cityname"></label>
-                        <input name="cityname" id="cityName" type="text" autofocus="true"
+                    <form id="citySearch">
+                        <input name="searchForm" id="searchForm" type="text" autofocus="true"
                             class="form-input form-control-lg" placeholder="Houston">
                         <br>
-                        <button type="submit" class="btn btn-primary gap-2 col-7 mx-auto mt-3 mb-3">Get Weather</button>
+                        <button type="button" id="searchBtn" class="btn btn-primary gap-2 col-7 mx-auto mt-3 mb-3">
+                            Get
+                            Weather
+                        </button>
+                    </form>
                 </div>
                 <hr>
 
                 <!--Weather History Buttons seciton-->
-                <div id="history" style="display: none;">
-
-
+                <div id="history" style="display: block;">
                     <!--Weather buttons will go here-->
-                    <div id="historyBtn">
-
-
-                        <!--History buttons will display here-->
+                    <div id="allHistoryButtons">
                     </div>
+
+
                 </div>
             </div>
 
 
             <!--Main weather forecast section-->
             <div class="col-md-9 mt-2">
-                <div id="locationCity">
+                <div id="locationCity" class="hidden">
                     <div class="card border-0" id="currentWeatherCard">
                         <h2 class="card-header border-0 bg-white" id="weatherHeader"></h2>
                         <div id="currentWeather">
-
+                            <div>Temp: <span id="currentWeather__Temp"></span></div>
+                            <div>Wind: <span id="currentWeather__Wind"></span></div>
+                            <div>Humidity: <span id="currentWeather__Humidity"></span></div>
+                            <div>UV Index: <span id="currentWeather__UVIndex"></span></div>
                         </div>
                     </div>
 
                 </div>
 
-                <!--5 Day Forecast seciton-->
-                <div class="card border-0 mt-3" id="fiveCard">
+                <!--5 Day Forecast section-->
+                <div class="card border-0 mt-3 hidden" id="fiveDayCard">
                     <h2 id="fiveDayHeader">5-Day Forecast</h2>
-                    <div id="fiveDayBody">
-                    </div>
+                    <div id="allFiveDayBlocks"></div>
+
                 </div>
 
             </div>

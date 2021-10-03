@@ -17,8 +17,21 @@ header {
 
 /*Five day card styling*/
 
-.cardBackground {
+#allFiveDayBlocks {
+  display: flex;
+}
+
+.fiveDayBlock {
   background-color: rgb(50, 66, 80);
   width: 225px;
   justify-content: space-around;
+  color: white;
+  font-weight: bold;
+  padding: 10px 10px 10px 10px;
+  margin: 10px 10px 10px 10px;
+}
+
+/*hide/unhiode feature*/
+.hidden {
+  display: none;
 }
