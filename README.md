@@ -27,7 +27,7 @@ https://jeffgoji.github.io/API-Weather-App/
 ## Pictures<a name="pictures"></a>
 
 Application front page:
-![Front page]https://github.com/JeffGoji/API-Weather-App/blob/main/screenshots/001.png)
+![Front page](https://github.com/JeffGoji/API-Weather-App/blob/main/screenshots/001.png)
 
 Application after text has been entered and saved one time:
 ![Quiz Page](https://github.com/JeffGoji/API-Weather-App/blob/main/screenshots/002.png)
