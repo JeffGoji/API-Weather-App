@@ -2,7 +2,7 @@
 
 GitHub Repository: https://github.com/JeffGoji/API-Weather-App
 
-Deployable link: https://jeffgoji.github.io/API-Weather-App/
+Deployable link: <a href="https://jeffgoji.github.io/API-Weather-App" target:_blank>https://jeffgoji.github.io/API-Weather-App/</a>
 
 
 ## Table of contents <a name="table"></a>
@@ -21,7 +21,7 @@ You can click on the generated buttons to reload the weather from those searches
 You can download it from this Github repository:
 GitHub Repository: https://github.com/JeffGoji/API-Weather-App
 Or you can see it deployed at:
-https://jeffgoji.github.io/API-Weather-App/
+<a href="https://jeffgoji.github.io/API-Weather-App" target:_blank>https://jeffgoji.github.io/API-Weather-App/</a>
 
 
 ## Pictures<a name="pictures"></a>
