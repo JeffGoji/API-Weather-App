@@ -81,11 +81,7 @@ var fetchWeatherApi = async function (cityname) {
     unhideWeatherInfo();
 
     if (searchHistory === []) {
-      searchHistory.push(cityname);
-
-      localStorage.setItem("weatherSearch", JSON.stringify(searchHistory));
-
-      createHistoryButton(cityname);
+      alert("Please enter a city");
     } else if (searchHistory.indexOf(cityname) === -1) {
       searchHistory.push(cityname);
       localStorage.setItem("weatherSearch", JSON.stringify(searchHistory));
