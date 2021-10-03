@@ -74,15 +74,15 @@ var fetchWeatherApi = async function (cityname) {
     //json response
     let data = await response.json();
 
-    //alert("data = " + JSON.stringify(data, null, 2));
+    // alert("data = " + JSON.stringify(data, null, 2));
 
     if (!response.ok) throw new Error(`${data.message} (${response.status})`);
 
     unhideWeatherInfo();
 
-    if (searchHistory === [0]) {
+    if (searchHistory === []) {
       alert("Please enter a city");
-    } else if (searchHistory.indexOf(cityname) === 0) {
+    } else if (searchHistory.indexOf(cityname) === -1) {
       searchHistory.push(cityname);
       localStorage.setItem("weatherSearch", JSON.stringify(searchHistory));
       createHistoryButton(cityname);
@@ -214,7 +214,7 @@ var displayFiveDayWeather = async function (latitude, longitude) {
 
 // Load any past city weather searches
 var loadHistory = function () {
-  searchHistory = JSON.parse(localStorage.getItem("weatherSearch"));
+  searchHistory = JSON.parse(localStorage.getItem("weatherSearch")) || [];
 
   //alert("searchHistory = " + JSON.stringify(searchHistory, null, 2));
 
